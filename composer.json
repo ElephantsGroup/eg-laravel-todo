@@ -16,7 +16,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ElaphantsGroup\\ToDo\\": "src/"
+            "ElephantsGroup\\ToDo\\": "src/"
         }
     },
     "autoload-dev": {
@@ -28,10 +28,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "ElaphantsGroup\\ToDo\\ToDoServiceProvider"
+                "ElephantsGroup\\ToDo\\ToDoServiceProvider"
             ],
             "aliases": {
-                "EGToDo": "ElaphantsGroup\\ToDo\\Facades\\ToDo"
+                "EGToDo": "ElephantsGroup\\ToDo\\Facades\\ToDo"
             }
         }
     }
