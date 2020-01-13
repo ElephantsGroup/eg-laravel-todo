@@ -1,0 +1,38 @@
+{
+    "name": "elephantsgroup/todo",
+    "description": "Laravel ToDo",
+    "keywords": ["laravel", "todo"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jalal Jaberi",
+            "email": "j_jaberi@yahoo.com",
+            "homepage": "http://elephantsgroup.com/"
+        }
+    ],
+    "require": {
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "ElaphantsGroup\\ToDo\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ElephantsGroup\\Tests\\ToDo\\": "tests/"
+        }
+    },
+    "minimum-stability": "stable",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ElaphantsGroup\\ToDo\\ToDoServiceProvider"
+            ],
+            "aliases": {
+                "EGToDo": "ElaphantsGroup\\ToDo\\Facades\\ToDo"
+            }
+        }
+    }
+}
