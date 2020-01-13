@@ -4,7 +4,6 @@ namespace ElephantsGroup\ToDo\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 use ElephantsGroup\ToDo\Task;
 
 class TaskController extends Controller
@@ -29,7 +28,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        return view('category.create');
+        return view('todo::task.new');
     }
 
     /**
@@ -40,10 +39,12 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        $category = new \App\Category;
-        $category->name = $request->name;
-        $category->save();
-        return 'Success!';
+        $task = new Task;
+        $task->title = $request->title;
+        $task->description = $request->description;
+        $task->done = false;
+        $message = $task->save() ? 'Success!' : 'Failed!';
+        return redirect()->back()->withInput($request->all())->with('message', $message);
     }
 
     /**
@@ -64,10 +65,10 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
-        $category = \App\Category::findOrFail($id);
-        return view('category.update', ['category' => $category]);
+        $task = Task::findOrFail($id);
+        return view('todo::task.edit', ['task' => $task]);
     }
 
     /**
@@ -79,10 +80,11 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $category = \App\Category::findOrFail($id);
-        $category->name = $request->name;
-        $category->save();
-        return 'Success!';
+        $task = Task::findOrFail($id);
+        $task->title = $request->title;
+        $task->description = $request->description;
+        $message = $task->save() ? 'Success!' : 'Failed!';
+        return redirect()->back()->withInput($request->all())->with('message', $message);
     }
 
     /**
@@ -91,10 +93,11 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
         $task = Task::findOrFail($id);
-        // $task->delete();
-        return redirect()->back()->withInput(Input::all())->with('message', 'Success!');
+        $message = "Deleting task #$id" . ($task->delete() ? ' Succeed!' : ' Failed!');
+        return redirect()->to('/todo/task')->withInput($request->all())->with('message', $message);
+        // return redirect()->back()->withInput($request->all())->with('message', $message);
     }
 }

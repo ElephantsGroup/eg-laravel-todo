@@ -2,7 +2,7 @@
 
 use ElephantsGroup\ToDo\Controllers;
 
-Route::resource('todo/task', 'ElephantsGroup\ToDo\Controllers\TaskController');
+Route::middleware('web')->resource('todo/task', 'ElephantsGroup\ToDo\Controllers\TaskController');
 
 /*Route::get('/todo', function () {
     var_dump('Hello todos!');
