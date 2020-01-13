@@ -1,5 +1,5 @@
 {
-    "name": "elephantsgroup/todo",
+    "name": "elephantsgroup/eg-laravel-todo",
     "description": "Laravel ToDo",
     "keywords": ["laravel", "todo"],
     "license": "MIT",
