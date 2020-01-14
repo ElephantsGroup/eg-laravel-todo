@@ -11,6 +11,8 @@
         }
     ],
     "require": {
+        "laravel/laravel": "^6.8",
+        "laravel/helpers": "^1.1"
     },
     "require-dev": {
     },
