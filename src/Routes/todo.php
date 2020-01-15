@@ -2,8 +2,7 @@
 
 use ElephantsGroup\ToDo\Controllers;
 
-Route::middleware('web')->resource('todo/task', 'ElephantsGroup\ToDo\Controllers\TaskController');
+Route::group(['middleware' => ['web', 'role:todo-admin']], function () {
+    Route::middleware('web')->resource('todo/task', 'ElephantsGroup\ToDo\Controllers\TaskController');
+});
 
-/*Route::get('/todo', function () {
-    var_dump('Hello todos!');
-})->name('todo-home');*/
