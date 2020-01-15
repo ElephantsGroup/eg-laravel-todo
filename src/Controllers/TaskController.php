@@ -13,11 +13,21 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // var_dump(config('todo.attributes'));
         // var_dump(trans('todo::all.task'));
-        $tasks = Task::all()->where('done', false);
+        $show = config('todo.defaultListMode', 'undone');
+        if (!in_array($show, ['done', 'undone', 'all']))
+            $show = 'undone';
+        $showQuery = $request->query('show');
+        if ($showQuery && (in_array($showQuery, ['done', 'undone', 'all'])))
+            $show = $showQuery;
+        if ('all' === $show)
+            $tasks = Task::all();
+        else if ('undone' === $show)
+            $tasks = Task::all()->where('done', false);
+        else
+            $tasks = Task::all()->where('done', true);
         return view('todo::task.list', ['tasks' => $tasks]);
     }
 
@@ -99,5 +109,21 @@ class TaskController extends Controller
         $message = "Deleting task #$id" . ($task->delete() ? ' Succeed!' : ' Failed!');
         return redirect()->to('/todo/task')->withInput($request->all())->with('message', $message);
         // return redirect()->back()->withInput($request->all())->with('message', $message);
+    }
+
+    public function done($id)
+    {
+        $task = Task::findOrFail($id);
+        $task->done();
+        $task->save();
+        return redirect()->back()->with('message', 'Success!');
+    }
+
+    public function undone($id)
+    {
+        $task = Task::findOrFail($id);
+        $task->undone();
+        $task->save();
+        return redirect()->back()->with('message', 'Success!');
     }
 }

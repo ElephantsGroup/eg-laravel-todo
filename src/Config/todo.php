@@ -1,4 +1,4 @@
 <?php
 return[
-    'attributes' => []
+    'defaultListMode' => 'all'
 ];
