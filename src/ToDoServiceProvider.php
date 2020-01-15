@@ -3,6 +3,7 @@
 namespace ElephantsGroup\ToDo;
 
 use Illuminate\Support\ServiceProvider;
+use ElephantsGroup\ToDo\Commands\ToDo;
 
 class ToDoServiceProvider extends ServiceProvider
 {
@@ -12,6 +13,13 @@ class ToDoServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/Database/migrations');
         $this->loadTranslationsFrom(__DIR__ . '/Translations', 'todo');
         $this->loadViewsFrom(__DIR__ . '/Views', 'todo');
+        $this->publishes([__DIR__ . '/Assets' => public_path('vendor/todo'),], 'public');
+        if ($this->app->runningInConsole())
+        {
+            $this->commands([
+                Commands\CreateToDo::class,
+            ]);
+        }   
     }
 
     /**
